@@ -328,6 +328,181 @@
             color: #aaa;
         }
 
+        /* ── MODAL ── */
+        .modal-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 60;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+        }
+
+        .modal-card {
+            width: min(100%, 520px);
+            max-height: calc(100vh - 3rem);
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 1.75rem;
+            box-shadow: 0 36px 90px rgba(15, 23, 42, 0.25);
+            padding: 2rem;
+            position: relative;
+            border: 1px solid rgba(45, 75, 158, 0.08);
+            opacity: 0;
+            transform: translateY(24px) scale(0.97);
+        }
+
+        .modal-backdrop:not(.hidden) {
+            animation: backdropFade 0.2s ease forwards;
+        }
+
+        .modal-backdrop:not(.hidden) .modal-card {
+            animation: modalPop 0.28s ease-out forwards;
+        }
+
+        .modal-card::-webkit-scrollbar {
+            width: 7px;
+        }
+
+        .modal-card::-webkit-scrollbar-thumb {
+            background: rgba(45, 75, 158, 0.18);
+            border-radius: 999px;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 2.75rem;
+            height: 2.75rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            border: 1px solid rgba(15, 23, 42, 0.08);
+            background: rgba(255, 255, 255, 0.95);
+            color: #1A1D2E;
+            font-size: 1.05rem;
+            transition: background 0.2s ease, transform 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #f8fafc;
+            transform: scale(1.02);
+        }
+
+        .modal-header {
+            display: grid;
+            gap: 0.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .modal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.5rem 0.8rem;
+            border-radius: 999px;
+            background: rgba(45, 75, 158, 0.08);
+            color: #2D4B9E;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .modal-highlight {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            border-radius: 1.25rem;
+            border: 1px solid rgba(45, 75, 158, 0.08);
+            background: rgba(45, 75, 158, 0.04);
+            color: #1A1D2E;
+            font-size: 0.88rem;
+            line-height: 1.6;
+        }
+
+        .modal-description {
+            color: #4B5563;
+            font-size: 0.95rem;
+            line-height: 1.75;
+        }
+
+        .input-group {
+            position: relative;
+        }
+
+        .input-group .form-input {
+            padding-right: 3.5rem;
+        }
+
+        .input-addon {
+            position: absolute;
+            right: 0.85rem;
+            top: 50%;
+            transform: translateY(-50%);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: 999px;
+            background: rgba(45, 75, 158, 0.07);
+            color: #2D4B9E;
+            border: 1px solid transparent;
+            transition: background 0.2s ease;
+            cursor: pointer;
+        }
+
+        .input-addon:hover {
+            background: rgba(45, 75, 158, 0.12);
+        }
+
+        .input-help {
+            margin-top: 0.35rem;
+            font-size: 0.8rem;
+            color: #6B7280;
+            line-height: 1.6;
+        }
+
+        .modal-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            justify-content: center;
+            width: 100%;
+            border-radius: 1.25rem;
+            padding: 1rem 1.15rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .modal-backdrop.hidden {
+            display: none;
+        }
+
+        @keyframes backdropFade {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes modalPop {
+            from {
+                opacity: 0;
+                transform: translateY(24px) scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
         /* ── CTA SECTION ── */
         .cta-section {
             background: linear-gradient(135deg, var(--dark) 0%, #0D1526 100%);
@@ -448,16 +623,16 @@
                         class="text-sm font-semibold text-gray-500 hover:text-[#2D4B9E] transition-colors">Bisnis</a>
                 </li>
                 <li><a href="#kontak"
-                        class="text-sm font-semibold text-gray-500 hover:text-[#2D4B9E] transition-colors">Kontak</a>
+                        class="text-sm font-semibold text-gray-500 hover:text-[#2D4B9E] transition-colors">Layanan</a>
                 </li>
             </ul>
 
             <!-- CTA Desktop -->
             <div class="hidden md:flex items-center gap-3">
-                <a href="#"
-                    class="text-sm font-bold px-5 py-2 rounded-lg border-2 border-[#2D4B9E] text-[#2D4B9E] hover:bg-[#2D4B9E] hover:text-white transition-all">Masuk</a>
-                <a href="#kontak"
-                    class="text-sm font-bold px-5 py-2 rounded-lg bg-[#D0021B] text-white hover:bg-[#B00218] transition-all shadow-md shadow-red-200">Daftar</a>
+                <button type="button" data-modal-target="modal-login"
+                    class="text-sm font-bold px-5 py-2 rounded-lg border-2 border-[#2D4B9E] text-[#2D4B9E] hover:bg-[#2D4B9E] hover:text-white transition-all">Masuk</button>
+                <button type="button" data-modal-target="modal-register"
+                    class="text-sm font-bold px-5 py-2 rounded-lg bg-[#D0021B] text-white hover:bg-[#B00218] transition-all shadow-md shadow-red-200">Daftar</button>
             </div>
 
             <!-- Hamburger -->
@@ -480,6 +655,12 @@
                 <li><a href="#kontak" class="block py-2 text-gray-600 hover:text-[#2D4B9E] font-semibold">Kontak</a>
                 </li>
             </ul>
+            <div class="mt-5 flex flex-col gap-3">
+                <button type="button" data-modal-target="modal-login"
+                    class="w-full text-left text-sm font-bold px-5 py-3 rounded-lg border-2 border-[#2D4B9E] text-[#2D4B9E] hover:bg-[#2D4B9E] hover:text-white transition-all">Masuk</button>
+                <button type="button" data-modal-target="modal-register"
+                    class="w-full text-left text-sm font-bold px-5 py-3 rounded-lg bg-[#D0021B] text-white hover:bg-[#B00218] transition-all shadow-md shadow-red-200">Daftar</button>
+            </div>
         </div>
     </nav>
 
@@ -1254,6 +1435,177 @@
         </div>
     </footer>
 
+    <!-- ══ MODAL MASUK ══ -->
+    <div id="modal-login" class="modal-backdrop hidden" aria-hidden="true">
+        <div class="modal-card">
+            <button type="button" class="modal-close" data-modal-close="modal-login"
+                aria-label="Tutup modal">×</button>
+
+            <!-- Logo Bar -->
+            <!-- Logo Bar -->
+            <div
+                style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(0,0,0,0.07)">
+                <img src="{{ asset('storage/logo-h.webp') }}" alt="PT. Fokus Jasa Mitra"
+                    style="height:36px;object-fit:contain;" />
+                <div style="width:1px;height:32px;background:rgba(0,0,0,0.08)"></div>
+                <div>
+                    <div
+                        style="font-size:9px;font-weight:700;color:#9CA3AF;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px">
+                        Bagian dari</div>
+                    <div style="font-size:11px;font-weight:700;color:#1A7A3C;">Petrokimia Gresik Group</div>
+                </div>
+            </div>
+
+            <div class="modal-header">
+                <span class="modal-badge">
+                    <span
+                        style="width:5px;height:5px;border-radius:50%;background:#2D4B9E;display:inline-block"></span>
+                    Portal Kandidat FJM
+                </span>
+                {{-- <h3
+                    style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#1A1D2E;line-height:0.95;margin-bottom:0.3rem">
+                    MASUK KE <span style="color:#2D4B9E">AKUN</span>
+                </h3> --}}
+                <p class="modal-description">Gunakan email terdaftar untuk mengakses portal layanan profesional FJM.
+                </p>
+            </div>
+
+            <form class="space-y-5">
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">Email</label>
+                    <div class="modal-highlight">Gunakan email perusahaan atau akun terdaftar.</div>
+                    <input type="email" placeholder="email@domain.com"
+                        class="form-input w-full px-4 py-3 rounded-2xl text-sm font-medium mt-3" />
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">Kata
+                        Sandi</label>
+                    <div class="input-group">
+                        <input id="login-password" type="password" placeholder="Masukkan kata sandi"
+                            class="form-input w-full px-4 py-3 rounded-2xl text-sm font-medium" />
+                        <button type="button" class="input-addon" data-password-toggle="login-password">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p class="input-help">Tidak akan dibagikan kepada pihak lain.</p>
+                </div>
+                <button type="button" onclick="window.location.href='{{ route('dashboard') }}'" class="modal-action bg-[#2D4B9E] hover:bg-[#1A3C8A] text-white">
+                    Masuk
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+                <p class="text-center text-sm text-gray-500">Belum punya akun?
+                    <button type="button" data-modal-close="modal-login" data-modal-target="modal-register"
+                        class="font-semibold text-[#D0021B] hover:text-[#B00218]">Daftar sekarang</button>
+                </p>
+            </form>
+        </div>
+    </div>
+
+
+    <!-- ══ MODAL DAFTAR ══ -->
+    <div id="modal-register" class="modal-backdrop hidden" aria-hidden="true">
+        <div class="modal-card">
+            <button type="button" class="modal-close" data-modal-close="modal-register"
+                aria-label="Tutup modal">×</button>
+
+            <!-- Logo Bar -->
+            <!-- Logo Bar -->
+            <div
+                style="display:flex;align-items:center;justify-content:center;gap:12px;margin-bottom:1.25rem;padding-bottom:1.25rem;border-bottom:1px solid rgba(0,0,0,0.07)">
+                <img src="{{ asset('storage/logo-h.webp') }}" alt="PT. Fokus Jasa Mitra"
+                    style="height:36px;object-fit:contain;" />
+                <div style="width:1px;height:32px;background:rgba(0,0,0,0.08)"></div>
+                <div>
+                    <div
+                        style="font-size:9px;font-weight:700;color:#9CA3AF;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:3px">
+                        Bagian dari</div>
+                    <div style="font-size:11px;font-weight:700;color:#1A7A3C;">Petrokimia Gresik Group</div>
+                </div>
+            </div>
+
+            <div class="modal-header">
+                {{-- <span class="modal-badge" style="background:rgba(208,2,27,0.08);color:#D0021B">
+                    <span
+                        style="width:5px;height:5px;border-radius:50%;background:#D0021B;display:inline-block"></span>
+                    Bergabung Bersama FJM
+                </span> --}}
+                <h3
+                    style="font-family:'Bebas Neue',sans-serif;font-size:42px;color:#1A1D2E;line-height:0.95;margin-bottom:0.3rem">
+                    DAFTAR <span style="color:#D0021B">AKUN</span>
+                </h3>
+                <p class="modal-description">Daftarkan akun Anda untuk mengakses seluruh layanan profesional dari FJM.
+                </p>
+            </div>
+
+            <form class="space-y-5">
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">Nama</label>
+                    <input type="text" placeholder="Nama lengkap"
+                        class="form-input w-full px-4 py-3 rounded-2xl text-sm font-medium" />
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">Email</label>
+                    <input type="email" placeholder="email@domain.com"
+                        class="form-input w-full px-4 py-3 rounded-2xl text-sm font-medium" />
+                </div>
+                <div class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div>
+                        <label class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">Kata
+                            Sandi</label>
+                        <div class="input-group">
+                            <input id="register-password" type="password" placeholder="Minimal 8 karakter"
+                                class="form-input w-full px-4 py-3 rounded-2xl text-sm font-medium" />
+                            <button type="button" class="input-addon" data-password-toggle="register-password">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                        <p class="input-help">Kombinasi huruf dan angka.</p>
+                    </div>
+                    <div>
+                        <label
+                            class="text-xs font-bold text-gray-500 uppercase tracking-widest mb-2 block">Konfirmasi</label>
+                        <div class="input-group">
+                            <input id="register-password-confirm" type="password" placeholder="Ulangi kata sandi"
+                                class="form-input w-full px-4 py-3 rounded-2xl text-sm font-medium" />
+                            <button type="button" class="input-addon"
+                                data-password-toggle="register-password-confirm">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <button type="button" class="modal-action bg-[#D0021B] hover:bg-[#B00218] text-white">
+                    Daftar Sekarang
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                </button>
+                <p class="text-center text-sm text-gray-500">Sudah punya akun?
+                    <button type="button" data-modal-close="modal-register" data-modal-target="modal-login"
+                        class="font-semibold text-[#2D4B9E] hover:text-[#1A3C8A]">Masuk</button>
+                </p>
+            </form>
+        </div>
+    </div>
 
     <!-- ══════════════════════════════════
      SCRIPTS
@@ -1291,6 +1643,44 @@
                     });
                     document.getElementById('mobile-menu').classList.add('hidden');
                 }
+            });
+        });
+
+        // Modal open/close
+        document.querySelectorAll('[data-modal-target]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.modalTarget;
+                const modal = document.getElementById(targetId);
+                if (modal) modal.classList.remove('hidden');
+            });
+        });
+
+        document.querySelectorAll('[data-modal-close]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.modalClose;
+                const modal = document.getElementById(targetId);
+                if (modal) modal.classList.add('hidden');
+            });
+        });
+
+        document.querySelectorAll('.modal-backdrop').forEach(backdrop => {
+            backdrop.addEventListener('click', (event) => {
+                if (event.target === backdrop) {
+                    backdrop.classList.add('hidden');
+                }
+            });
+        });
+
+        document.querySelectorAll('[data-password-toggle]').forEach(button => {
+            button.addEventListener('click', () => {
+                const targetId = button.dataset.passwordToggle;
+                const input = document.getElementById(targetId);
+                if (!input) return;
+                const isPassword = input.type === 'password';
+                input.type = isPassword ? 'text' : 'password';
+                button.innerHTML = isPassword ?
+                    '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.542-7a10.05 10.05 0 011.568-3.07M6.22 6.22A9.956 9.956 0 0112 5c4.478 0 8.268 2.943 9.542 7a10.029 10.029 0 01-4.052 5.2M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3l18 18"/></svg>' :
+                    '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>';
             });
         });
     </script>
