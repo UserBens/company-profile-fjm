@@ -595,6 +595,146 @@
             background: rgba(26, 122, 60, 0.08);
             color: var(--green);
         }
+
+        /* ── HERO SLIDER ── */
+        .hero-slider {
+            position: relative;
+            min-height: 100vh;
+            overflow: hidden;
+            background: var(--dark);
+        }
+
+        .hero-slide {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0;
+            z-index: 0;
+            transition: opacity 2.8s ease-in-out;
+            animation: heroZoom 20s ease-in-out infinite alternate;
+            will-change: opacity, transform;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
+            z-index: 1;
+        }
+
+        @keyframes heroZoom {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.08);
+            }
+        }
+
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(10, 12, 22, 0.55) 0%, rgba(10, 12, 22, 0.35) 40%, rgba(10, 12, 22, 0.75) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 8rem 1.5rem 6rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-progress {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            z-index: 3;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .hero-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--red);
+        }
+
+        .hero-progress-bar.animating {
+            transition: width 7s linear;
+            width: 100%;
+        }
+
+        .hero-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            transition: background 0.25s ease, transform 0.25s ease;
+        }
+
+        .hero-arrow:hover {
+            background: var(--red);
+            border-color: var(--red);
+            transform: translateY(-50%) scale(1.06);
+        }
+
+        .hero-arrow.prev {
+            left: 1.5rem;
+        }
+
+        .hero-arrow.next {
+            right: 1.5rem;
+        }
+
+        .hero-dots {
+            position: absolute;
+            z-index: 3;
+            left: 50%;
+            bottom: 2.25rem;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.55rem;
+        }
+
+        .hero-dots .carousel-dot {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .hero-dots .carousel-dot.active {
+            background: var(--red);
+        }
+
+        .carousel-dot {
+            width: 0.55rem;
+            height: 0.55rem;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            width: 1.75rem;
+        }
+
     </style>
 </head>
 
@@ -666,125 +806,59 @@
 
 
     <!-- ══════════════════════════════════
-     HERO
+     HERO SLIDER
 ══════════════════════════════════ -->
-    <section class="hero-section min-h-screen flex flex-col justify-center pt-24 pb-20 relative">
-        <div class="shape-red"></div>
-        <div class="shape-blue"></div>
+    <section class="hero-slider" id="hero-slider">
 
-        <!-- dot pattern top-right -->
-        <div class="absolute top-24 right-8 w-56 h-56 dot-pattern opacity-60 pointer-events-none rounded-xl"></div>
-        <!-- dot pattern bottom-left -->
-        <div class="absolute bottom-16 left-6 w-40 h-40 dot-pattern opacity-40 pointer-events-none rounded-xl"></div>
+        <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1589939705384-5185137a7f0f?fm=jpg&amp;q=80&amp;w=1920&amp;auto=format&amp;fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1652303518379-c0ef1c9fb2b1?fm=jpg&amp;q=80&amp;w=1920&amp;auto=format&amp;fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1593313637552-29c2c0dacd35?fm=jpg&amp;q=80&amp;w=1920&amp;auto=format&amp;fit=crop')"></div>
+        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1530639834082-05bafb67fbbe?fm=jpg&amp;q=80&amp;w=1920&amp;auto=format&amp;fit=crop')"></div>
 
-        <div class="max-w-7xl mx-auto px-6 w-full relative z-10">
-            <div class="grid lg:grid-cols-2 gap-14 items-center">
+        <div class="hero-overlay"></div>
 
-                <!-- LEFT -->
-                <div>
-                    <!-- pill badge -->
-                    <div
-                        class="a1 inline-flex items-center gap-2 bg-white border border-red-100 rounded-full px-4 py-1.5 mb-6 shadow-sm">
-                        <span class="w-2 h-2 rounded-full bg-[#D0021B] animate-pulse"></span>
-                        <span class="text-xs font-bold text-[#D0021B] tracking-widest uppercase">11th Anniversary · 2014
-                            – 2025</span>
-                    </div>
+        <div class="hero-content">
+            <div class="inline-flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-1.5 mb-7 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-[#D0021B] animate-pulse"></span>
+                <span class="text-xs font-bold text-white/90 tracking-widest uppercase">12th Anniversary · 2014 – 2026</span>
+            </div>
 
-                    <h1 class="a2 font-display text-7xl md:text-[88px] leading-[0.95] text-[#1A1D2E] mb-5">
-                        ACCELERATING<br />
-                        <span class="text-[#D0021B]">GROWTH,</span><br />
-                        <span class="text-[#2D4B9E]">SHAPING</span><br />
-                        THE FUTURE
-                    </h1>
+            <h1 class="font-display text-6xl md:text-8xl text-white leading-[1.02] mb-4 tracking-wide">
+                PT. FOKUS JASA MITRA
+            </h1>
 
-                    <p class="a3 text-gray-500 text-lg leading-relaxed max-w-lg mb-9 font-light">
-                        PT. Fokus Jasa Mitra — bagian dari <strong class="text-[#1A7A3C] font-semibold">Petrokimia
-                            Gresik Group</strong> — adalah mitra ketenagakerjaan terpercaya yang menyediakan SDM
-                        profesional untuk mendukung operasional bisnis Anda.
-                    </p>
+            <p class="text-white text-2xl md:text-3xl font-semibold mb-5">Mitra Alih Daya Profesional</p>
 
-                    <div class="a4 flex flex-wrap gap-3 items-center">
-                        <a href="#tentang"
-                            class="group flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#D0021B] text-white font-bold text-sm shadow-lg shadow-red-200 hover:bg-[#B00218] transition-all">
-                            Pelajari Lebih Lanjut
-                            <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none"
-                                stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                            </svg>
-                        </a>
-                        <a href="#kontak"
-                            class="flex items-center gap-2 px-7 py-3.5 rounded-xl border-2 border-[#2D4B9E] text-[#2D4B9E] font-bold text-sm hover:bg-[#2D4B9E] hover:text-white transition-all">
-                            Hubungi Kami
-                        </a>
-                    </div>
+            <p class="text-white/70 text-sm md:text-base max-w-2xl mx-auto leading-relaxed font-light mb-9">
+                Man Power Supply, Tank &amp; Area Cleaning, Chemical for Oil &amp; Gas, Protective Coating Onshore &amp;
+                Offshore, Supplier Pumps
+            </p>
 
-                    <!-- trusted by -->
-                    <div class="a5 mt-10 flex items-center gap-4 pt-6 border-t border-black/8">
-                        <div class="flex -space-x-2">
-                            <div
-                                class="w-8 h-8 rounded-full bg-[#D0021B] border-2 border-white flex items-center justify-center text-white text-xs font-bold">
-                                P</div>
-                            <div
-                                class="w-8 h-8 rounded-full bg-[#2D4B9E] border-2 border-white flex items-center justify-center text-white text-xs font-bold">
-                                K</div>
-                            <div
-                                class="w-8 h-8 rounded-full bg-[#1A7A3C] border-2 border-white flex items-center justify-center text-white text-xs font-bold">
-                                A</div>
-                            <div
-                                class="w-8 h-8 rounded-full bg-gray-300 border-2 border-white flex items-center justify-center text-gray-600 text-xs font-bold">
-                                +</div>
-                        </div>
-                        <p class="text-sm text-gray-500"><strong class="text-gray-700 font-semibold">50+
-                                perusahaan</strong> telah mempercayakan kebutuhan SDM mereka</p>
-                    </div>
-                </div>
-
-                <!-- RIGHT — Stats + badge -->
-                <div class="relative">
-                    <!-- floating badge -->
-                    <div
-                        class="floating absolute -top-6 right-4 z-20 bg-white rounded-2xl shadow-xl shadow-blue-100 border border-blue-50 px-5 py-4">
-                        <div class="text-xs font-bold text-[#2D4B9E] tracking-widest uppercase mb-1">Anniversary</div>
-                        <div class="font-display text-5xl text-[#D0021B] leading-none">11TH</div>
-                        <div class="text-xs text-gray-400 mt-1">5 Mei 2014 – 5 Mei 2025</div>
-                    </div>
-
-                    <!-- stats grid -->
-                    <div class="grid grid-cols-2 gap-4 mt-16">
-                        <div class="stat-card rounded-2xl p-6">
-                            <div class="font-display text-5xl text-[#D0021B] leading-none mb-1">11+</div>
-                            <div class="text-xs font-bold text-gray-400 tracking-widest uppercase">Tahun Pengalaman
-                            </div>
-                        </div>
-                        <div class="stat-card rounded-2xl p-6">
-                            <div class="font-display text-5xl text-[#2D4B9E] leading-none mb-1">500+</div>
-                            <div class="text-xs font-bold text-gray-400 tracking-widest uppercase">Tenaga Kerja Aktif
-                            </div>
-                        </div>
-                        <div class="stat-card rounded-2xl p-6">
-                            <div class="font-display text-5xl text-[#1A7A3C] leading-none mb-1">50+</div>
-                            <div class="text-xs font-bold text-gray-400 tracking-widest uppercase">Klien Terpercaya
-                            </div>
-                        </div>
-                        <div class="stat-card rounded-2xl p-6 bg-[#1A1D2E]">
-                            <div class="font-display text-5xl text-white leading-none mb-1">3</div>
-                            <div class="text-xs font-bold text-gray-400 tracking-widest uppercase">Unit Bisnis</div>
-                        </div>
-                    </div>
-
-                    <!-- logo floating card -->
-                    <div
-                        class="mt-4 bg-white rounded-2xl border border-black/6 shadow-md px-6 py-4 flex items-center gap-4">
-                        <img src="{{ asset('storage/logo-h.webp') }}" alt="Logo FJM" class="h-10 object-contain" />
-                        <div class="w-px h-8 bg-gray-200"></div>
-                        <p class="text-xs text-gray-400 leading-tight">Bagian dari<br /><strong
-                                class="text-gray-700">Petrokimia Gresik Group</strong></p>
-                    </div>
-                </div>
-
+            <div class="flex flex-wrap justify-center gap-3">
+                <a href="#tentang"
+                    class="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#D0021B] text-white font-bold text-sm shadow-lg shadow-red-900/30 hover:bg-[#B00218] transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+                    </svg>
+                    Tentang Kami
+                </a>
+                <a href="#layanan"
+                    class="flex items-center gap-2 px-7 py-3.5 rounded-xl bg-[#2D4B9E] text-white font-bold text-sm shadow-lg shadow-blue-900/30 hover:bg-[#1A3C8A] transition-all">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                    </svg>
+                    Layanan
+                </a>
             </div>
         </div>
+
+        <div class="hero-progress">
+            <div class="hero-progress-bar" id="hero-progress-bar"></div>
+        </div>
+
+        <div class="hero-dots" id="hero-dots"></div>
     </section>
 
 
@@ -1683,6 +1757,54 @@
                     '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>';
             });
         });
+
+        // ══════════════════════════════════
+        // HERO BACKGROUND SLIDER
+        // ══════════════════════════════════
+        (function() {
+            const slidesWrap = document.getElementById('hero-slider');
+            const slides = Array.from(slidesWrap.querySelectorAll('.hero-slide'));
+            const dotsWrap = document.getElementById('hero-dots');
+            const progressBar = document.getElementById('hero-progress-bar');
+            const total = slides.length;
+            let current = 0;
+            let autoplayTimer = null;
+            const AUTOPLAY_MS = 7000;
+
+            slides.forEach((_, i) => {
+                const dot = document.createElement('div');
+                dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+                dot.addEventListener('click', () => goTo(i));
+                dotsWrap.appendChild(dot);
+            });
+            const dots = Array.from(dotsWrap.children);
+
+            function update() {
+                slides.forEach((s, i) => s.classList.toggle('active', i === current));
+                dots.forEach((d, i) => d.classList.toggle('active', i === current));
+            }
+
+            function goTo(index) {
+                current = (index + total) % total;
+                update();
+                restartAutoplay();
+            }
+
+            function next() {
+                goTo(current + 1);
+            }
+
+            function restartAutoplay() {
+                clearInterval(autoplayTimer);
+                progressBar.classList.remove('animating');
+                void progressBar.offsetWidth;
+                progressBar.classList.add('animating');
+                autoplayTimer = setInterval(next, AUTOPLAY_MS);
+            }
+
+            update();
+            restartAutoplay();
+        })();
     </script>
 </body>
 
